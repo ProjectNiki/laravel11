@@ -1,5 +1,13 @@
 <?php
 
+
+use App\Models\post;
+
+/** 
+ * ! memanggil controller Post
+ */
+
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,30 +26,18 @@ Route::get('/posts', function () {
     return view(
         'posts',
         [
-            'posts' => [
-                [
-                    'id' => 1,
-                    'title' => 'Judul Artikel 1',
-                    'author' => 'Niki Dwijananto',
-                    'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. In quas mollitia dolorem saepe eos sapiente voluptatum soluta error non veniam at iste beatae quaerat, commodi temporibus distinctio sequi nihil explicabo.'
-                ],
-                [
-                    'id' => 2,
-                    'title' => 'Judul Artikel 2',
-                    'author' => 'Niki Dwijananto',
-                    'body' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem cumque, ipsum natus facilis voluptatum quam sunt laboriosam, velit illo amet deserunt voluptate iste soluta molestiae ut, ipsa ad sapiente quisquam.'
-                ]
-            ],
-            'title' => 'My Blog'
+            'title' => 'My Blog',
+            'posts' => post::all()
         ]
     );
 });
 
+Route::get('posts/{post:slug}', function (post $post) {
 
-Route::get('posts/{id}', function ($id) {
-    $posts = ['
-    
-    '];
+    return view('post', [
+        'title' => 'single post',
+        'post' => $post
+    ]);
 });
 
 Route::get('/contact', function () {
